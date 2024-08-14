@@ -30,7 +30,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="age">Age:</label><br>
-                    <input type="number" id="age" name="age" value="{{ task.age }}" placeholder="Age">
+                    <input type="number" id="age" name="age" value="{{ task.age }}" placeholder="Age" >
                 </div>
                 <div class="form-group">
                     <label for="dob">Date of Birth:</label><br>
@@ -45,12 +45,17 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group"> <!--You are working with this-->
+                <label for="Telephone-Num">Tel:</label><br>
+                <input type="tel" id="tel-Num" name="Telephone-Num"  value="{{ task.Telephone_Num }}" required>
+            </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="date-tested">Date HIV Tested:</label><br>
                     <input type="date" id="date-tested" name="date-tested" value="{{ task.date_tested }}" required>
                 </div>
+                <div class="form-group">
                 <div class="form-group">
                     <label>HIV Status:</label><br>
                     <div class="bottom11">
@@ -65,8 +70,8 @@
                 </div>
             </div>
             <button type="submit">Submit</button>
-            <br>
         </form>
     </div>
 </section>
+<script src="{{ url_for('static', filename='JS/RegForm.js') }}"></script>
 {% endblock %}

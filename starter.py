@@ -5,22 +5,23 @@ from datetime import datetime
 # Starting the program
 starter = Flask(__name__)
 
-# Will be used to connect to the XAMPP server for MySQL
+# Configuration for MySQL
 starter.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/Starter_db'
 starter.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(starter)
 
-# Starter for the table within the database
+# Define the table schema
 class Logs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100), nullable=False)
     second_name = db.Column(db.String(100))
     family_name = db.Column(db.String(100), nullable=False)
     dob = db.Column(db.Date, nullable=False)
-    age = db.Column(db.Numeric)
+    age = db.Column(db.String(3))  # Or calculate age dynamically
     gender = db.Column(db.String(10), nullable=False)
     date_tested = db.Column(db.Date, nullable=False)
+    Telephone_Num = db.Column(db.String(100))
     hiv_status = db.Column(db.String(10), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -32,7 +33,7 @@ with starter.app_context():
     db.drop_all()  # This will drop all existing tables
     db.create_all()  # This will create the necessary tables based on the models
 
-# Routes (Getting and storing information)
+# Routes
 @starter.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
@@ -40,9 +41,10 @@ def index():
         second_name = request.form['second-name']
         family_name = request.form['family-name']
         dob = request.form['dob']
-        age = request.form['age']
+        age = request.form.get('age')  # Optional if not using in db
         gender = request.form['gender']
         date_tested = request.form['date-tested']
+        telephone_num = request.form.get('tel-Num')
         hiv_status = request.form['hiv-status']
         
         new_task = Logs(
@@ -53,6 +55,7 @@ def index():
             age=age,
             gender=gender,
             date_tested=datetime.strptime(date_tested, '%Y-%m-%d').date(),
+            Telephone_Num=telephone_num,
             hiv_status=hiv_status
         )
 
@@ -65,8 +68,7 @@ def index():
     else:
         tasks = Logs.query.order_by(Logs.date_created).all()
         return render_template('index.html', tasks=tasks)
-    
-# For deleting any old or new entries of data
+
 @starter.route('/delete/<int:id>')
 def delete(id):
     task_to_delete = Logs.query.get_or_404(id)
@@ -77,23 +79,21 @@ def delete(id):
         return redirect('/')
     except Exception as e:
         return f'There was a problem deleting that task: {e}'
-    
-# For Viewing any data that has been added
+
 @starter.route('/viewing/<int:id>', methods=['GET', 'POST'])
 def viewing(id):
-    print(f"Request received POST id:{id}")  # Debugging output
     task = Logs.query.get_or_404(id)
 
     if request.method == 'POST':
-        print("Processing POST request")  # Debugging output
-        task.first_name = request.form['first-name']
-        task.second_name = request.form['second-name']
-        task.family_name = request.form['family-name']
-        task.dob = datetime.strptime(request.form['dob'], '%Y-%m-%d').date()
-        task.age = request.form['age']
-        task.gender = request.form['gender']
-        task.date_tested = datetime.strptime(request.form['date-tested'], '%Y-%m-%d').date()
-        task.hiv_status = request.form['hiv-status']
+        task.first_name = request.form.get('first-name')
+        task.second_name = request.form.get('second-name')
+        task.family_name = request.form.get('family-name')
+        task.dob = datetime.strptime(request.form.get('dob'), '%Y-%m-%d').date()
+        task.age = request.form.get('age')  # Optional if not using in db
+        task.gender = request.form.get('gender')
+        task.date_tested = datetime.strptime(request.form.get('date-tested'), '%Y-%m-%d').date()
+        task.Telephone_Num = request.form.get('Telephone-Num')
+        task.hiv_status = request.form.get('hiv-status')
 
         try:
             db.session.commit()
@@ -103,7 +103,7 @@ def viewing(id):
     else:
         return render_template('review.html', task=task)
 
-# Will run the application and program
+
+# Run the application
 if __name__ == "__main__":
     starter.run(debug=True)
-
