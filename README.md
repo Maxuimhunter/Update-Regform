@@ -14,7 +14,7 @@ ____
 > `Markdown-it Demo`
 > >[Markdown-it](https://markdown-it.github.io/)
 
-> Term2
+> `Term2`
 > > Definition 2a
 > >  Definition 2b
 ___
