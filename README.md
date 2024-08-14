@@ -9,7 +9,11 @@ ____
 - In the other folder the [JS](https://github.com/Maxuimhunter/Update-Regform/tree/main/static/JS) contains a file named main.Js.
 ____
 
-### [Custom containers](https://github.com/markdown-it/markdown-it-container)
-::: warning
-*here be dragons*
-:::
+Compact style:_
+
+Refrencess 1 - (Markdown-it Demo)
+  ~ [Markdown-it](https://markdown-it.github.io/)
+
+Term 2
+  ~ Definition 2a
+  ~ Definition 2b
