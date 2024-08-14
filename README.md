@@ -9,11 +9,12 @@ ____
 - In the other folder the [JS](https://github.com/Maxuimhunter/Update-Regform/tree/main/static/JS) contains a file named main.Js.
 ____
 
-Compact style:_
+## Refrencess
 
-Refrencess 1 - (Markdown-it Demo)
-  ~ [Markdown-it](https://markdown-it.github.io/)
+> (Markdown-it Demo)
+> >[Markdown-it](https://markdown-it.github.io/)
 
-Term 2
-  ~ Definition 2a
-  ~ Definition 2b
+> Term2
+> > Definition 2a
+> >  Definition 2b
+
