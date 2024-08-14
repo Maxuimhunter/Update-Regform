@@ -17,4 +17,15 @@ ____
 > Term2
 > > Definition 2a
 > >  Definition 2b
+___
 
+
+Syntax highlighting
+
+``` js
+var foo = function (bar) {
+  return bar++;
+};
+
+console.log(foo(5));
+```
