@@ -103,7 +103,6 @@ def viewing(id):
     else:
         return render_template('review.html', task=task)
 
-
 # Run the application
 if __name__ == "__main__":
     starter.run(debug=True)
